@@ -20,17 +20,16 @@ public class CategoryService {
             return PriorityLevel.valueOf(cached);
         }
 
-        Category foundCategory =
-                repository.findById(category)
-                        .orElseThrow(() ->
-                                new RuntimeException("Unknown category"));
+        PriorityLevel priority = repository.findById(category)
+                .map(Category::getPriority)
+                .orElse(PriorityLevel.LOW);
 
         cacheService.set(
                 key,
-                foundCategory.getPriority().name(),
+                priority.name(),
                 3600
         );
 
-        return foundCategory.getPriority();
+        return priority;
     }
 }

@@ -15,3 +15,5 @@ build/
 
 # --- OS ---
 .DS_Store
+
+kafka-load-js/node_modules
